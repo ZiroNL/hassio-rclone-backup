@@ -113,8 +113,10 @@ func main() {
 
 	Infoln("checking job configs...")
 	for i, job := range config.Jobs {
-		if job.Source != "" {
+		if job.Command != "delete" {
+		  if job.Source != "" {
 			job.Sources = []string{job.Source}
+		  }
 		}
 		if job.Destination != "" {
 			job.Destinations = []string{job.Destination}
