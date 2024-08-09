@@ -113,10 +113,8 @@ func main() {
 
 	Infoln("checking job configs...")
 	for i, job := range config.Jobs {
-		if job.Command != "delete" {
-		  if job.Source != "" {
+  	        if job.Source != "" {
 			job.Sources = []string{job.Source}
-		  }
 		}
 		if job.Destination != "" {
 			job.Destinations = []string{job.Destination}
@@ -192,8 +190,10 @@ func LoadConfig() (*Config, error) {
 }
 
 func CheckJob(job JobConfig) error {
-	if len(job.Sources) == 0 {
-		return errors.New("at least 1 source must be specified")
+	if job.Command != "delete" {
+		if len(job.Sources) == 0 {
+			return errors.New("at least 1 source must be specified")
+		}
 	}
 	for _, source := range job.Sources {
 		if err := CheckRemote(source); err != nil {
